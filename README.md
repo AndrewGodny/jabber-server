@@ -19,15 +19,13 @@ XMPP Jabber - Server
 - Використовуючи  username через campus.API отримуються дані про користувача
 - Далі проводиться хешування параметрів користувача і сервера, виконується наступне:
   - генерується хеш з даними користувача
-    - якщо клієнт використовує md5-sess, то хеш формується так a1 = ComputeMd5(username + ":" + Realm + ":" + password, false) + ":" + Nonce + ":" + Cnonce;
-    - якщо клієнт використовує md5, то a1 = username + ":" + Realm + ":" + password;
-  - генерується хеш з даними сервера: a2 = method + ":" + DigestUri;
+    - якщо клієнт використовує md5-sess, то хеш формується так `a1 = ComputeMd5(username + ":" + Realm + ":" + password, false) + ":" + Nonce + ":" + Cnonce;`
+    - якщо клієнт використовує md5, то `a1 = username + ":" + Realm + ":" + password;`
+  - генерується хеш з даними сервера: `a2 = method + ":" + DigestUri;`
   - генерація відповіді клієнту:
     - якщо заданий параметр qop, то відповідь така:
-      ComputeMd5( ComputeMd5(a1, true) + ":" + Nonce + ":" + Nc + ":" + Cnonce + ":" + Qop + ":" +
-            ComputeMd5(a2, true),
-            true);
-    - інакше ComputeMd5(ComputeMd5(a1, true) + ":" + Nonce + ":" + ComputeMd5(a2, true), true);
+      `ComputeMd5( ComputeMd5(a1, true) + ":" + Nonce + ":" + Nc + ":" + Cnonce + ":" + Qop + ":" + ComputeMd5(a2, true), true);`
+    - інакше `ComputeMd5(ComputeMd5(a1, true) + ":" + Nonce + ":" + ComputeMd5(a2, true), true);`
 - Відповідь надсилається клієнту
 - Клієнт також генерує хеші по тим самим правилам, якщо результати співпадають, то авторизація пройшла успішно.
 У випадку виникнення помилки на будь-якому із етапів клієнт отримає відповідне повідомлення про помилку.
